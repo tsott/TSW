@@ -1,0 +1,26 @@
+<!DOCTYPE html>   
+<head>   
+
+<title><%= title %></title>
+    <link rel='stylesheet' href='/css/bootstrap.min.css' />
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<link rel='stylesheet' href='/css/bootstrap-responsive.css'>
+<script type="text/javascript" src='/js/jquery-1.9.1.min.js'></script>
+<script type="text/javascript" src='/js/scripts.js'></script>
+</head>  
+<body>  
+<h1><%= title %></h1>
+<form class="form-horizontal" method="post" action="/signup">  
+          <div class="control-group">  
+            <input type="text" class="input-small" placeholder="Username" name="nick" id="nick">  
+			<input type="password" class="input-small" placeholder="Password" name="password" id="password">  
+  </div>
+          <div class="form-actions">  
+            <button type="submit" id="Sign_up" class="btn btn-primary">Register</button>  
+            <button id="Cancel" class="btn">Cancel</button>  
+          </div>
+</form>
+<br />
+<div id="success"></div>
+</body>  
+</html> 

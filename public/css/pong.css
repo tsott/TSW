@@ -1,0 +1,9 @@
+ #pong{
+margin-left:auto;
+margin-right: auto;
+background-color:#000000;
+color:#ffffff;
+width:640px;
+height:480px;
+border-color:grey;
+}

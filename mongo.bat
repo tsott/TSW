@@ -1,0 +1,1 @@
+Fakepath\mongodb-win32-x86_64-2.4.3\bin\mongod.exe --dbpath Fakepath\data
