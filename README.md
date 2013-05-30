@@ -1,4 +1,4 @@
-<h1>Turniej Pong<h1>
+<h1>Turniej Pong</h1>
 Gra Pong przeznaczona jest dla 2 lub 4 osób. Polega na odbijaniu paletka piłki w
 strone przeciwnika. Każdy z graczy (lub drużyn dwu osobowych) ma za zadanie posłac piłke
 za linie koncowa przeciwnika. Gracz który posłał piłke za linie koncowa otrzymuje 1 punkt.
