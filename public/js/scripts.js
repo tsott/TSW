@@ -1,15 +1,9 @@
 $(document).ready(function () {
 
-    $("#pong").pong({
-        "speed":1500,
-        "pad_height":100
-    });
-
 $('#Register').click(function() {
     window.location.href = '/signup';
     return false;
 });
-
 
 $('#Cancel').click(function() {
     window.location.href = '/';
@@ -29,4 +23,45 @@ alert("dziala");
     return false;
 });
 */
+$('#single').click(function() {
+$('#options').children().remove();
+$('#logo').remove();
+$('#score').append('Your score is:');
+	$("#pong").pong({
+        "speed":1000,
+        "pad_height":100
+    });
+    return false;
 });
+
+$('#multi').click(function() {
+	
+    return false;
+});
+});
+
+
+
+function submit() {
+window.location.href = '/game';
+return false;	
+}
+
+function register() {
+var username = document.getElementById('Username');
+var password = document.getElementById('Password');
+console.log("Received data");
+window.location.href = '/';
+return false;	
+
+//alert(Username.value);
+//alert(Password.value);  //dotad dziala
+
+//console.log("Received: %s %s", username, password);
+//db.Players.insert( { Username: username, Password: password } );
+//window.location.href = '/';
+//db.collection('Players', function (err, coll) {
+  //      coll.insert({"Username": username, "Password": password}, function (err) {
+
+//
+}

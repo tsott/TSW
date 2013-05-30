@@ -5,6 +5,7 @@
 
 exports.index = function(req, res){
   res.render('index', { title: 'Pong Tournament' });
+
  // var username = req.body.nick;
 //var password = req.body.password;
 };

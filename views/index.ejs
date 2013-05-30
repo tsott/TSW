@@ -1,24 +1,28 @@
 <!DOCTYPE html>   
 <head>   
-
 <title><%= title %></title>
     <link rel='stylesheet' href='/css/bootstrap.min.css' />
-    <link rel='stylesheet' href='/css/pong.css' />
-<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+ <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 <link rel='stylesheet' href='/css/bootstrap-responsive.css'>
+<link rel='stylesheet' href='/css/pong.css' />
 <script type="text/javascript" src='/js/jquery-1.9.1.min.js'></script>
 <script type="text/javascript" src='/js/scripts.js'></script>
-<script type="text/javascript" src='/js/jquery-pong-0.4.1.js'></script>
+<link rel="shortcut icon" href="/images/favicon.ico" />
+<link rel="shortcut icon" href="/images/myicon.ico" />
+<link rel="icon" type="image/png" href="/images/favicon.ico" />
+<link rel="icon" type="image/png" href="/images/favicon.png" />
+<link rel="icon" type="image/png" href="favicon.png" />
+
 </head>  
 <body>  
-<h1><%= title %></h1>
-<form class="well form-inline">     
-  <input type="text" class="input-small" placeholder="Username">  
-  <input type="password" class="input-small" placeholder="Password">  
-  <button type="submit" class="btn btn-primary" id="Log_in">Log in</button>  
-  <button id="Register" class="btn">Register</button>  
-</form>  
+  <p id="logo"></p>
+  <div class="form">
+  <input type="text" class="input-small" placeholder="Username"name="Username" id="Username" >  
+  <input type="password" class="input-small" placeholder="Password" name="Password" id="Password" >  
+  <br />
+  <button type="submit" class="btn btn-primary" id="Log_in" onclick="submit();" >Log in</button>  
+  <button id="Register" class="btn" >Register</button>  
+ </div>
 <br />
-<div id="pong"></div>
 </body>  
 </html> 
