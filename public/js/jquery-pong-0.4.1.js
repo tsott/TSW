@@ -99,7 +99,7 @@
         obj.append($("<div></div>").attr("id",obj.attr("id")+"_player1").css({"position":"absolute","width":opts.pad_width,"height":opts.pad_height,"background-color":opts.pad_color,"left":10,"top":(obj.height()/2)-opts.pad_height/2}));
         obj.append($("<div></div>").attr("id",obj.attr("id")+"_player2").css({"position":"absolute","width":opts.pad_width,"height":opts.pad_height,"background-color":opts.pad_color,"left":obj.width()-20,top:(obj.height()/2)-opts.pad_height/2}));
         obj.append($("<div></div>").attr("id",obj.attr("id")+"_ball").css({"position":"absolute","width":opts.ball_size,"height":opts.ball_size,"background-color":opts.ball_color}));
-        obj.append($("<input>").css({"background-color":"transparent","color":obj.css("color"),"border":0,"position":"absolute","text-align":"center","width":100,"font-size":30,"font-weight":"bold","font-family":"Courier,Impact","left":(obj.width()/2)-120}).attr("type","text").attr("id",obj.attr("id")+"_score1").val(0));
+        obj.append($("<input>").css({"background-color":"transparent","color":obj.css("color"),"border":0,"position":"absolute","text-align":"center","width":100,"font-size":30,"font-weight":"bold","font-family":"Courier,Impact","left":(obj.width()/2)-120}).attr("type","text").attr("id",obj.attr("id")+"_score1").val(0)); 
         obj.append($("<input>").css({"background-color":"transparent","color":obj.css("color"),"border":0,"position":"absolute","text-align":"center","width":100,"font-size":30,"font-weight":"bold","font-family":"Courier,Impact","left":(obj.width()/2)+20}).attr("type","text").attr("id",obj.attr("id")+"_score2").val(0));
 
         obj.append(
@@ -150,6 +150,10 @@
                         $("#"+$this.attr("id")+"_title").html("You loose");
                         $("#"+$this.attr("id")+"_title_msg").html("");
                         $("#"+$this.attr("id")+"_title_box").css({"display":"block"});
+                        		$('#pong').remove(); //TS remove game field
+                        	$('#options').append('<input type="button" value="Leave game" class="btn btn-primary" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
+					
+						
                     }
                     
                 }
@@ -168,6 +172,8 @@
                         $("#"+$this.attr("id")+"_title").html("You win");
                         $("#"+$this.attr("id")+"_title_msg").html("");
                         $("#"+$this.attr("id")+"_title_box").css({"display":"block"});
+                        $('#pong').remove(); //TS remove game field
+                        	$('#options').append('<input type="button" value="Leave game" class="btn" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
                     }
                 }
             }
