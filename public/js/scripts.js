@@ -30,17 +30,9 @@ $('#options').append('Obecnie nie ma innych graczy online<br />');
 $('#options').append('<input type="button" value="Leave game" class="btn btn-primary" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
     return false;
 });
-
-//$('#back_button').click(function() {
-	  //window.location.href = '/game';
-	    //return false;
-//});
-	
 }); //document ready ends here
 
-
-
-function submit() {
+function submit() { 
 window.location.href = '/game';
 return false;	
 }
@@ -50,21 +42,21 @@ window.location.href = '/game';
 return false;	
 }
 
-function register() {
-var username = document.getElementById('Username');
-var password = document.getElementById('Password');
-console.log("Received data");
-window.location.href = '/';
-return false;	
 
-//alert(Username.value);
-//alert(Password.value);  //dotad dziala
 
-//console.log("Received: %s %s", username, password);
-//db.Players.insert( { Username: username, Password: password } );
-//window.location.href = '/';
-//db.collection('Players', function (err, coll) {
-  //      coll.insert({"Username": username, "Password": password}, function (err) {
+function register() {   //TS get user data
+username = document.getElementById('Username');
+password = document.getElementById('Password');
+//alert(username.value);
+//alert(password.value);
+console.log("Received: %s %s", username.value, password.value);
+console.trace();
+//db.open(function (err) {
 
-//
+    //db.collection('Users', function (err, coll) {
+        //coll.insert({"User": username.value, "Pass": password.value}, function (err) {});
+    //window.location.href = '/';
+//return false;	
+    });
+});
 }

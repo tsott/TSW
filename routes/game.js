@@ -1,3 +1,3 @@
 exports.play = function(req, res){
-  res.render('game', { title: 'Choose game type' });
+  res.render('game', { title: 'Pong Tournament' });
 }

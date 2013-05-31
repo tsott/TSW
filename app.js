@@ -25,12 +25,13 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-
+var username; //TS global variables for username and password
+var password;
 /////////////////////////////////////////////////////MONGO/////////////////////////////////////////////////
 var mongo = require('mongodb'),
   Server = mongo.Server,
   Db = mongo.Db;
-var server = new Server('localhost', 27017, {auto_reconnect: true});
+var server = new Server('localhost', 27017, {safe: true});
 var db = new Db('Players', server);
 db.open(function(err, db) {
   if(!err) {
@@ -48,14 +49,7 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/game', game.play); //TS game page added
 app.get('/signup', signup.register); //TS registration page added
-//app.get('/login', login.login);
-//app.post('/signup', function(req, res){
-//var username = req.body.nick;
-//var password = req.body.password;
-//console.log("Received: %s %s", username, password);
-//});
-
-                              
+                           
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
