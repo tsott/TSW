@@ -34,11 +34,21 @@ var mongo = require('mongodb'),
 var server = new Server('localhost', 27017, {safe: true});
 var db = new Db('Players', server);
 db.open(function(err, db) {
+	db.collection('Users', function (err, coll) {
+coll.insert({"User": username.value, "Pass": password.value}, function (err) {});
   if(!err) {
     console.log("Database is up and running! :) ");
   }
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function add_player(){
+db.open(function (err) {
+db.collection('Users', function (err, coll) {
+coll.insert({"User": username.value, "Pass": password.value}, function (err) {});
+
+}
+}
+}
 
 // development only
 if ('development' == app.get('env')) {
