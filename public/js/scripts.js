@@ -46,15 +46,7 @@ window.location.href = '/game';
 return false;	
 }
 
-function register() {   //TS get user data
-console.trace();
-username = document.getElementById('Username');
-password = document.getElementById('Password');
-//alert(username.value);
-//alert(password.value);
-console.log("Received: %s %s", username.value, password.value)
 
-}
 
 
 

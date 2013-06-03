@@ -8,11 +8,11 @@ var express = require('express')
   , signup = require('./routes/signup')
   , game = require('./routes/game')
   , http = require('http')
-  , path = require('path');
-  
+ 
+ , path = require('path');
+var app = express()
 
-var app = express();
-
+ 
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
@@ -26,7 +26,7 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 var username; //TS global variables for username and password
-
+var password;
 /////////////////////////////////////////////////////MONGO/////////////////////////////////////////////////
 var mongo = require('mongodb'),
   Server = mongo.Server,
@@ -49,6 +49,35 @@ db.open(function(err, db) {
 //}
 //}
 //development only
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////SOCKETS
+    var io = require('socket.io').listen();  
+      
+    io.sockets.on('connection', function (socket) {  
+      socket.emit('news', { hello: 'world' });  
+      socket.on('my other event', function (data) {  
+        console.log(data);  
+      });  
+    });  
+
+
+
+  //socket = io.listen(server);
+  //socket.on("connection", function(client) {
+    //console.log("jeden jest");
+    //});
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END_SOCKETS
+
+
+
+
+
+
+
+
+
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
@@ -57,6 +86,8 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/game', game.play); //TS game page added
 app.get('/signup', signup.register); //TS registration page added
+                           
+                        
                            
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
