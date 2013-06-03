@@ -150,7 +150,11 @@
                         $("#"+$this.attr("id")+"_title").html("You loose");
                         $("#"+$this.attr("id")+"_title_msg").html("");
                         $("#"+$this.attr("id")+"_title_box").css({"display":"block"});
-                        		$('#pong').remove(); //TS remove game field
+                        $('#score').children().remove();  //TS changing scores
+                        score_counter--;
+                        if(score_counter <0) score_counter = 0;
+                        $('#score').append('<p>Your score is: ' + score_counter + '</p>');
+                        $('#pong').remove(); //TS remove game field
                         	$('#options').append('<input type="button" value="Leave game" class="btn btn-primary" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
 					
 						
@@ -172,7 +176,10 @@
                         $("#"+$this.attr("id")+"_title").html("You win");
                         $("#"+$this.attr("id")+"_title_msg").html("");
                         $("#"+$this.attr("id")+"_title_box").css({"display":"block"});
+                          $('#score').children().remove();  //TS changing scores
+                        score_counter++;
                         $('#pong').remove(); //TS remove game field
+            $('#score').append('<p>Your score is: ' + score_counter + '</p>');
                         	$('#options').append('<input type="button" value="Leave game" class="btn" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
                     }
                 }

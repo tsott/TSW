@@ -26,7 +26,7 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 var username; //TS global variables for username and password
-var password;
+
 /////////////////////////////////////////////////////MONGO/////////////////////////////////////////////////
 var mongo = require('mongodb'),
   Server = mongo.Server,
@@ -34,23 +34,21 @@ var mongo = require('mongodb'),
 var server = new Server('localhost', 27017, {safe: true});
 var db = new Db('Players', server);
 db.open(function(err, db) {
-	db.collection('Users', function (err, coll) {
-coll.insert({"User": username.value, "Pass": password.value}, function (err) {});
+	//db.collection('Users', function (err, coll) {
+//coll.insert({"User": username.value, "Pass": password.value}, function (err) {});
   if(!err) {
     console.log("Database is up and running! :) ");
   }
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function add_player(){
-db.open(function (err) {
-db.collection('Users', function (err, coll) {
-coll.insert({"User": username.value, "Pass": password.value}, function (err) {});
+//function add_player(){
+//db.open(function (err) {
+//db.collection('Users', function (err, coll) {
+//coll.insert({"User": username.value, "Pass": password.value}, function (err) {});
 
-}
-}
-}
-
-// development only
+//}
+//}
+//development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
@@ -63,3 +61,4 @@ app.get('/signup', signup.register); //TS registration page added
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+

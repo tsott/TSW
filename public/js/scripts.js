@@ -1,3 +1,5 @@
+var score_counter=0;
+
 $(document).ready(function () {
 
 $('#Register').click(function() {
@@ -11,6 +13,7 @@ $('#Cancel').click(function() {
 });
 
 $('#single').click(function() {
+$('#score').append('<p>Your score is: ' + score_counter + '</p>');
 $('#options').children().remove();
 $('#logo').remove();
 
@@ -24,7 +27,8 @@ $('#pong_score2').prop('disabled', true);
 });
 
 $('#multi').click(function() {
-	$('#options').children().remove();
+	$('#score').append('Your score is:');
+		$('#options').children().remove();
 $('#logo').remove();
 $('#options').append('Obecnie nie ma innych graczy online<br />');
 $('#options').append('<input type="button" value="Leave game" class="btn btn-primary" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
@@ -42,27 +46,30 @@ window.location.href = '/game';
 return false;	
 }
 
-
-
 function register() {   //TS get user data
+console.trace();
 username = document.getElementById('Username');
 password = document.getElementById('Password');
 //alert(username.value);
 //alert(password.value);
-console.log("Received: %s %s", username.value, password.value);
-console.trace();
-function getXhrObject() {  
+console.log("Received: %s %s", username.value, password.value)
 
-    var xhrObject = new XMLHttpRequest();  
-var ajaxCapable = getXhrObject();  
-ajaxCapable.send(username); 
+}
 
-if (ajaxCapable.readyState == 4) {  
-        if (ajaxCapable.status == 200 || ajaxCapable.status == 304) {  
-            document.getElementById("content").innerHTML = ajaxCapable.responseText;  
-}
-}
-}
+
+
+//function getXhrObject() {  
+
+    //var xhrObject = new XMLHttpRequest();  
+//var ajaxCapable = getXhrObject();  
+//ajaxCapable.send(username); 
+
+//if (ajaxCapable.readyState == 4) {  
+        //if (ajaxCapable.status == 200 || ajaxCapable.status == 304) {  
+            //document.getElementById("content").innerHTML = ajaxCapable.responseText;  
+//}
+//}
+//}
 //$.ajax({
     //type: 'POST',
     //url: '/app.js',
@@ -72,8 +79,6 @@ if (ajaxCapable.readyState == 4) {
        //alert('response data = ' + data);
     //}
 //});
-
-}
 
 
 
