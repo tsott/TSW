@@ -12,13 +12,19 @@ $('#Cancel').click(function() {
     return false;
 });
 
+$('#music').click(function() {
+$('#music_box').remove();
+$('#music').remove();
+    return false;
+});
+
 $('#single').click(function() {
 $('#score').append('<p>Your score is: ' + score_counter + '</p>');
 $('#options').children().remove();
 $('#logo').remove();
 
 	$("#pong").pong({
-        "speed":1000,
+        "speed":2500,
         "pad_height":100
     });
     $('#pong_score1').prop('disabled', true); //TS score inputs now disabled
@@ -27,11 +33,17 @@ $('#pong_score2').prop('disabled', true);
 });
 
 $('#multi').click(function() {
-	$('#score').append('Your score is:');
+$('#score').append('<p>Your score is: ' + score_counter + '</p>');
 		$('#options').children().remove();
 $('#logo').remove();
-$('#options').append('Obecnie nie ma innych graczy online<br />');
-$('#options').append('<input type="button" value="Leave game" class="btn btn-primary" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
+$("#pong").pong({
+        "speed":1000,
+        "pad_height":100
+    });
+    $('#pong_score1').prop('disabled', true); //TS score inputs now disabled
+$('#pong_score2').prop('disabled', true);
+//$('#options').append('Obecnie nie ma innych graczy online<br />');
+//$('#options').append('<input type="button" value="Leave game" class="btn btn-primary" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
     return false;
 });
 }); //document ready ends here

@@ -36,3 +36,9 @@ margin-right:auto;
 div#score{
 text-align:center;
 }
+
+#music_box{
+position:absolute;
+bottom:0%;
+left:0%;
+}
