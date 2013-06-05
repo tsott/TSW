@@ -7,9 +7,9 @@ var express = require('express')
   , user = require('./routes/user')
   , signup = require('./routes/signup')
   , game = require('./routes/game')
-  , http = require('http')
+, http = require('http')
+ ,path = require('path');
  
- , path = require('path');
 var app = express()
 
  
@@ -28,18 +28,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 var username; //TS global variables for username and password
 var password;
 /////////////////////////////////////////////////////MONGO/////////////////////////////////////////////////
-var mongo = require('mongodb'),
-  Server = mongo.Server,
-  Db = mongo.Db;
-var server = new Server('localhost', 27017, {safe: true});
-var db = new Db('Players', server);
-db.open(function(err, db) {
-	//db.collection('Users', function (err, coll) {
-//coll.insert({"User": username.value, "Pass": password.value}, function (err) {});
-  if(!err) {
-    console.log("Database is up and running! :) ");
-  }
-});
+//var mongo = require('mongodb'),
+  //Server = mongo.Server,
+  //Db = mongo.Db;
+//var server = new Server('localhost', 27017, {safe: true});
+//var db = new Db('Players', server);
+//db.open(function(err, db) {
+	////db.collection('Users', function (err, coll) {
+////coll.insert({"User": username.value, "Pass": password.value}, function (err) {});
+  //if(!err) {
+    //console.log("Database is up and running! :) ");
+  //}
+//});
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //function add_player(){
 //db.open(function (err) {
@@ -50,34 +50,6 @@ db.open(function(err, db) {
 //}
 //development only
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////SOCKETS
-    var io = require('socket.io').listen();  
-      
-    io.sockets.on('connection', function (socket) {  
-      socket.emit('news', { hello: 'world' });  
-      socket.on('my other event', function (data) {  
-        console.log(data);  
-      });  
-    });  
-
-
-
-  //socket = io.listen(server);
-  //socket.on("connection", function(client) {
-    //console.log("jeden jest");
-    //});
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END_SOCKETS
-
-
-
-
-
-
-
-
-
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
@@ -85,11 +57,36 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/game', game.play); //TS game page added
-app.get('/signup', signup.register); //TS registration page added
+app.get('/signup', signup.register); //TS registration page added               
                            
-                        
-                           
-http.createServer(app).listen(app.get('port'), function(){
+var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////SOCKETS
+
+var io = require('socket.io');
+var socket = io.listen(server);
+
+socket.on('connection', function (client) {
+    'use strict';
+    var username;
+
+    client.send('Wtaj!');
+    client.send('Podaj nazwe uzytkownika: ');
+
+    client.on('message', function (msg) {
+        if (!username) {
+            username = msg;
+            client.send('Witaj ' + username + '!');
+            client.broadcast.emit('message', 'Nowy uzytkownik: ' + username);
+            return;
+        }
+        client.broadcast.emit('message', username + ': ' + msg);
+    });
+});
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END_SOCKETS
