@@ -78,9 +78,19 @@ users[client.user] = client.id
 i++;
 if(i>3){
 	client.emit('too_many_players')
-}
-client.emit('username', user);
-//TS works so far
+};
+
+if(i =1){
+	client.emit('player1')	
+};
+if(i=2){
+		client.emit('player2')	
+};
+
+client.on("disconnect", function() {
+    i--;
+    console.log("i: " + i);
+  });
 });
 
 

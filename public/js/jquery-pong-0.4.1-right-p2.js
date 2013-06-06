@@ -60,6 +60,20 @@
     
     function onMousemove(e)
     {   
+		socket.on('player1', function (){
+        var $this = $(this);
+        if ($this.data("pong_playing")) {
+            var y_rel = $(window).scrollTop()+(e.clientY-parseInt($this.offset().top));   // y relatif du curseur
+            var y = y_rel-parseInt($("#"+$this.attr("id")+"_player1").height()/2);
+            if (y<0) {
+                y=0;
+            } else if (y+$("#"+$this.attr("id")+"_player1").height() > $this.height()){
+                y = ($this.height())-$("#"+$this.attr("id")+"_player1").height();
+            }
+            $("#"+$this.attr("id")+"_player1").css({"top":y});
+        }
+	});
+	socket.on('player2', function (){
         var $this = $(this);
         if ($this.data("pong_playing")) {
             var y_rel = $(window).scrollTop()+(e.clientY-parseInt($this.offset().top));   // y relatif du curseur
@@ -71,6 +85,7 @@
             }
             $("#"+$this.attr("id")+"_player2").css({"top":y});
         }
+	});
     };
     
     function onClick(e)

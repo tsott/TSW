@@ -46,14 +46,13 @@ $('#multi').click(function() {
 var socket = io.connect(window.location.hostname);
   socket.on('connection', function () {
     });
-socket.on('username', function (user) {
-});
 socket.on('too_many_players', function () {
 $('#pong').remove();
 $('#score').remove();
 	$('#options').children().remove();
-$('#options').append('<h1>There is a game in progress please refresh your browser</h1><input type="button" value="Refresh" onclick="window.location=(\'/game\')" />');
+$('#options').append('<h1>There is a game in progress please try again or play on single player mode</h1><input type="button" value="Refresh" onclick="window.location=(\'/game\')" />');
 });
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////END_SOCKETS
 $('#score').append('<p>Your score is: ' + score_counter + '</p>');
 $('#logo').remove();
