@@ -63,13 +63,13 @@
         var $this = $(this);
         if ($this.data("pong_playing")) {
             var y_rel = $(window).scrollTop()+(e.clientY-parseInt($this.offset().top));   // y relatif du curseur
-            var y = y_rel-parseInt($("#"+$this.attr("id")+"_player1").height()/2);
+            var y = y_rel-parseInt($("#"+$this.attr("id")+"_player2").height()/2);
             if (y<0) {
                 y=0;
-            } else if (y+$("#"+$this.attr("id")+"_player1").height() > $this.height()){
-                y = ($this.height())-$("#"+$this.attr("id")+"_player1").height();
+            } else if (y+$("#"+$this.attr("id")+"_player2").height() > $this.height()){
+                y = ($this.height())-$("#"+$this.attr("id")+"_player2").height();
             }
-            $("#"+$this.attr("id")+"_player1").css({"top":y});
+            $("#"+$this.attr("id")+"_player2").css({"top":y});
         }
     };
     
@@ -116,17 +116,7 @@
             )
         );
     }
-    
-    function moveComputer($this,yc) {
-    
-        if (yc<0) {
-            yc=0;
-        } else if (yc>$this.height()-$("#"+$this.attr("id")+"_player2").height()) {
-            yc = $this.height()-$("#"+$this.attr("id")+"_player2").height();
-        }
-        $("#"+$this.attr("id")+"_player2").stop().animate({"top":yc},400,"linear");
-    }
-    
+
     function rebondir($this) {
 
         var speed = $this.data("pong_speed");        
@@ -138,13 +128,13 @@
             $this.data("pong_dx", 0-$this.data("pong_dx"));
             if (dx==-1) {
                 
-                var y_min = parseInt($("#"+$this.attr("id")+"_player1").css("top"))-$("#"+$this.attr("id")+"_ball").height();
-                var y_max = y_min+$("#"+$this.attr("id")+"_player1").height()+$("#"+$this.attr("id")+"_ball").height();
+                var y_min = parseInt($("#"+$this.attr("id")+"_player2").css("top"))-$("#"+$this.attr("id")+"_ball").height();
+                var y_max = y_min+$("#"+$this.attr("id")+"_player2").height()+$("#"+$this.attr("id")+"_ball").height();
                 if (y > y_min && y < y_max) {
                     $this.data("pong_speed", speed-50);
                 } else {
                     $this.data("pong_playing", false);
-                    $("#"+$this.attr("id")+"_score2").val(parseInt($("#"+$this.attr("id")+"_score2").val())+1);
+                    $("#"+$this.attr("id")+"_score2").val(parseInt($("#"+$this.attr("id")+"_score2").val())+1);  //tu
                     
                     if ($("#"+$this.attr("id")+"_score2").val() >= 5) {
                         $("#"+$this.attr("id")+"_title").html("You loose");

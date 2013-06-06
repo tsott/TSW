@@ -12,18 +12,6 @@
 <link rel="icon" type="image/ico" href="/images/favicon.ico" />
 <link rel="icon" type="image/png" href="favicon.png" />
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////-->
-<script src="/socket.io/socket.io.js"></script>
-<script>
-var socket = io.connect('http://localhost:3000'),
-        entry_el = $('#entry');
-
-    console.log('connecting…');
-
-    socket.on('connect', function () {
-        console.log('Polaczony!');
-    });
-</script>
-
 </head>  
 <body>  
   <p id="logo"></p>

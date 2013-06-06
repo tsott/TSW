@@ -8,16 +8,23 @@
 <script type="text/javascript" src='/js/jquery-1.9.1.min.js'></script>
 <script type="text/javascript" src='/js/scripts.js'></script>
 <script type="text/javascript" src='/js/jquery-pong-0.4.1.js'></script>
-<script type="text/javascript" src='/js/jquery-pong-0.4.1-right-p2.js'></script>
+
 <!--/////////////////////////////////////////////////favicon//////////////////////////////////////////-->
 <link rel="shortcut icon" href="/images/favicon.ico" />
 <link rel="shortcut icon" href="/images/myicon.ico" />
-<link rel="icon" type="image/png" href="/images/favicon.ico" />
+<link rel="icon" type="image/ico" href="/images/favicon.ico" />
 <link rel="icon" type="image/png" href="/images/favicon.png" />
 <link rel="icon" type="image/png" href="favicon.png" />
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+
+});
+
+</script>
 </head>  
 <body>  
+<input type="button" class="btn" id="music" value="No music" />
 <p id="logo"></p>
   <br />
   <div class="form">
@@ -30,6 +37,5 @@
 <div id="pong"></div>
 <div id="score"></div>
 <embed id="music_box"style = "visibility:hidden;" src="/js/tune.mp3" loop="true">
-<input type="button" class="btn" id="music" value="No music" />
 </body>  
 </html> 

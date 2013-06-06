@@ -25,8 +25,8 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-var username; //TS global variables for username and password
-var password;
+var login_username; //TS global variables for username and password
+var login_password;
 /////////////////////////////////////////////////////MONGO/////////////////////////////////////////////////
 //var mongo = require('mongodb'),
   //Server = mongo.Server,
@@ -65,27 +65,24 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////SOCKETS
-
 var io = require('socket.io');
 var socket = io.listen(server);
-
+var i=1;
+var users = {}
+var user
 socket.on('connection', function (client) {
-    'use strict';
-    var username;
-
-    client.send('Wtaj!');
-    client.send('Podaj nazwe uzytkownika: ');
-
-    client.on('message', function (msg) {
-        if (!username) {
-            username = msg;
-            client.send('Witaj ' + username + '!');
-            client.broadcast.emit('message', 'Nowy uzytkownik: ' + username);
-            return;
-        }
-        client.broadcast.emit('message', username + ': ' + msg);
-    });
+ var user = (client.id)
+client.user = user
+users[client.user] = client.id
+         console.log('Connected player number: ' + i + ' has id: ' + user);
+i++;
+if(i>3){
+	client.emit('too_many_players')
+}
+client.emit('username', user);
+//TS works so far
 });
+
 
 
 

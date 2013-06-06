@@ -15,6 +15,7 @@ color:white;
 body{
 background-color:black;
 color:white;
+height:100%;
 }
 
 div.form{
@@ -39,6 +40,5 @@ text-align:center;
 
 #music_box{
 position:absolute;
-bottom:0%;
-left:0%;
+margin-bottom: -50px;
 }

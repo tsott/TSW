@@ -2,6 +2,11 @@ var score_counter=0;
 
 $(document).ready(function () {
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////SOCKETS
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////END_SOCKETS
+
 $('#Register').click(function() {
     window.location.href = '/signup';
     return false;
@@ -33,18 +38,31 @@ $('#pong_score2').prop('disabled', true);
 });
 
 $('#multi').click(function() {
-$('#score').append('<p>Your score is: ' + score_counter + '</p>');
+
+	$('.form').append('<script type="text/javascript" src=\'/js/jquery-pong-0.4.1-right-p2.js\'></script>');
+
 		$('#options').children().remove();
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////SOCKETS
+var socket = io.connect(window.location.hostname);
+  socket.on('connection', function () {
+    });
+socket.on('username', function (user) {
+});
+socket.on('too_many_players', function () {
+$('#pong').remove();
+$('#score').remove();
+	$('#options').children().remove();
+$('#options').append('<h1>There is a game in progress please refresh your browser</h1><input type="button" value="Refresh" onclick="window.location=(\'/game\')" />');
+});
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////END_SOCKETS
+$('#score').append('<p>Your score is: ' + score_counter + '</p>');
 $('#logo').remove();
 $("#pong").pong({
-        "speed":1000,
+        "speed":2500,
         "pad_height":100
     });
     $('#pong_score1').prop('disabled', true); //TS score inputs now disabled
 $('#pong_score2').prop('disabled', true);
-//$('#options').append('Obecnie nie ma innych graczy online<br />');
-//$('#options').append('<input type="button" value="Leave game" class="btn btn-primary" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
-    return false;
 });
 }); //document ready ends here
 
