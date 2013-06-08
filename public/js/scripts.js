@@ -7,10 +7,10 @@ $(document).ready(function () {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////END_SOCKETS
 
-$('#Register').click(function() {
-    window.location.href = '/signup';
-    return false;
-});
+//$('#Register').click(function() {
+    //window.location.href = '/signup';
+    //return false;
+//});
 
 $('#Cancel').click(function() {
     window.location.href = '/';
@@ -44,15 +44,18 @@ $('#multi').click(function() {
 		$('#options').children().remove();
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////SOCKETS
 var socket = io.connect(window.location.hostname);
-  socket.on('connection', function () {
-    });
 socket.on('too_many_players', function () {
 $('#pong').remove();
 $('#score').remove();
 	$('#options').children().remove();
-$('#options').append('<h1>There is a game in progress please try again or play on single player mode</h1><input type="button" value="Refresh" onclick="window.location=(\'/game\')" />');
+$('#options').append('<h1>There is a game in progress please try again or play on single player mode</h1><input type="button" value="Go back" onclick="window.location=(\'/game\')" />');
 });
-
+//socket.on('too_few_players', function () {
+//$('#pong').remove();
+//$('#score').remove();
+	//$('#options').children().remove();
+//$('#options').append('<h1>There are no other players willing to play at the moment. Please try again later or play on single player mode</h1><input type="button" value="Go back" onclick="window.location=(\'/game\')" />');
+//});
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////END_SOCKETS
 $('#score').append('<p>Your score is: ' + score_counter + '</p>');
 $('#logo').remove();

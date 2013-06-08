@@ -52,29 +52,20 @@
             $this.data("x_max",$("#"+$this.attr("id")+"_player2").position().left-$("#"+$this.attr("id")+"_ball").width());
             $this.data("y_min",0);
             $this.data("y_max",$this.height()-$("#"+$this.attr("id")+"_ball").width());
- var socket = io.connect(window.location.hostname);
-socket.on('player1', function () {        //TS player1 is on the left    
+
             $this.mousemove(onMousemove);
             $this.click(onClick);
-		});
-socket.on('player2', function () {        //TS player2 is on the right    
-            $this.mousemove(onMousemove2);
-            $this.click(onClick);
-		});
-            
         });
     };
- 
-
-             
-
+    
     function onMousemove(e)
-    {    
+    {   
+		
         var $this = $(this);
         if ($this.data("pong_playing")) {
             var y_rel = $(window).scrollTop()+(e.clientY-parseInt($this.offset().top));   // y relatif du curseur
             var y = y_rel-parseInt($("#"+$this.attr("id")+"_player1").height()/2);
-            
+            //socket.broadcast.emit('player1_position', y); //TS passing position to other player
             if (y<0) {
                 y=0;
             } else if (y+$("#"+$this.attr("id")+"_player1").height() > $this.height()){
@@ -85,25 +76,6 @@ socket.on('player2', function () {        //TS player2 is on the right
     
 };
 }
-
-function onMousemove2(e)
-    {    
-        var $this = $(this);
-        if ($this.data("pong_playing")) {
-            var y_rel = $(window).scrollTop()+(e.clientY-parseInt($this.offset().top));   // y relatif du curseur
-            var y = y_rel-parseInt($("#"+$this.attr("id")+"_player2").height()/2);
-            
-            if (y<0) {
-                y=0;
-            } else if (y+$("#"+$this.attr("id")+"_player2").height() > $this.height()){
-                y = ($this.height())-$("#"+$this.attr("id")+"_player2").height();
-            }
-            $("#"+$this.attr("id")+"_player2").css({"top":y});
-           
-    
-};
-}
-
     function onClick(e)
     {
         var $this = $(this);

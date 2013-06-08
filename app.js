@@ -67,30 +67,34 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////SOCKETS
 var io = require('socket.io');
 var socket = io.listen(server);
-var i=1;
-var users = {}
+var i=0;
 var user
+
 socket.on('connection', function (client) {
  var user = (client.id)
 client.user = user
-users[client.user] = client.id
-         console.log('Connected player number: ' + i + ' has id: ' + user);
+
 i++;
-if(i>3){
+         console.log('Connected player number: ' + i + ' has id: ' + user);
+
+if(i>2){
 	client.emit('too_many_players')
 };
 
-if(i =1){
-	client.emit('player1')	
-};
-if(i=2){
-		client.emit('player2')	
-};
+if(i==1){
+client.emit('player1')
+}
+if(i==2){
+client.emit('player2')
+}
+
 
 client.on("disconnect", function() {
     i--;
     console.log("i: " + i);
   });
+  
+  
 });
 
 
