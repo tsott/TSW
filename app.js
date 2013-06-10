@@ -27,27 +27,7 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 var login_username; //TS global variables for username and password
 var login_password;
-/////////////////////////////////////////////////////MONGO/////////////////////////////////////////////////
-//var mongo = require('mongodb'),
-  //Server = mongo.Server,
-  //Db = mongo.Db;
-//var server = new Server('localhost', 27017, {safe: true});
-//var db = new Db('Players', server);
-//db.open(function(err, db) {
-	////db.collection('Users', function (err, coll) {
-////coll.insert({"User": username.value, "Pass": password.value}, function (err) {});
-  //if(!err) {
-    //console.log("Database is up and running! :) ");
-  //}
-//});
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//function add_player(){
-//db.open(function (err) {
-//db.collection('Users', function (err, coll) {
-//coll.insert({"User": username.value, "Pass": password.value}, function (err) {});
 
-//}
-//}
 //development only
 
 if ('development' == app.get('env')) {
@@ -85,19 +65,40 @@ if(i==1){
 client.emit('player1')
 }
 if(i==2){
-client.emit('player2')
+client.emit('player2');
 }
+socket.on('move', function(y){
+console.log(y);	
+});
 
-
+//socket.on('start_for_p1', function(client){									//TS allow player 1 to click start only when p2 started
+	//client.emit('start_the_game');
+//});
 client.on("disconnect", function() {
     i--;
     console.log("i: " + i);
   });
   
   
+client.on('add_score1', function(){
+	client.broadcast.emit('add1')
+})  
+client.on('add_score2', function(){
+	client.broadcast.emit('add2')
+})  
+
+client.on('position_all', function(stuff){
+	socket.emit('pass_the_ball', stuff);
 });
+  //client.on('ball_position', function(){
+	  //client.broadcast.emit('pos');
+  //});
+  
+  //client.on('scores', function(){
+	  //client.broadcast.emit('
+//});
 
 
-
+});
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////END_SOCKETS

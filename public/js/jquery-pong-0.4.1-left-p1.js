@@ -54,7 +54,9 @@
             $this.data("y_max",$this.height()-$("#"+$this.attr("id")+"_ball").width());
 
             $this.mousemove(onMousemove);
+            socket.on('start_the_game', function(){  ////TS allow player 1 to click start only when p2 started
             $this.click(onClick);
+		});
         });
     };
     
