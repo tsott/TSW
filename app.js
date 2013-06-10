@@ -48,55 +48,67 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 var io = require('socket.io');
 var socket = io.listen(server);
 var i=0;
-var user
+var user;
 
 socket.on('connection', function (client) {
- var user = (client.id)
-client.user = user
+   var user = (client.id);
+  client.user = user;
 
-i++;
-         console.log('Connected player number: ' + i + ' has id: ' + user);
+  i++;
+           console.log('Connected player number: ' + i + ' has id: ' + user);
 
-if(i>2){
-	client.emit('too_many_players')
-};
+  if(i>2){
+  	client.emit('too_many_players');
+  };
 
-if(i==1){
-client.emit('player1')
-}
-if(i==2){
-client.emit('player2');
-}
-socket.on('move', function(y){
-console.log(y);	
-});
-
-//socket.on('start_for_p1', function(client){									//TS allow player 1 to click start only when p2 started
-	//client.emit('start_the_game');
-//});
-client.on("disconnect", function() {
-    i--;
-    console.log("i: " + i);
+  if(i==1){
+  client.emit('player1');
+  }
+  if(i==2){
+  client.emit('player2');
+  }
+  socket.on('move', function(y){
+  console.log(y);	
   });
-  
-  
-client.on('add_score1', function(){
-	client.broadcast.emit('add1')
-})  
-client.on('add_score2', function(){
-	client.broadcast.emit('add2')
-})  
 
-client.on('position_all', function(stuff){
-	socket.emit('pass_the_ball', stuff);
-});
-  //client.on('ball_position', function(){
-	  //client.broadcast.emit('pos');
+  //socket.on('start_for_p1', function(client){									//TS allow player 1 to click start only when p2 started
+  	//client.emit('start_the_game');
   //});
-  
-  //client.on('scores', function(){
-	  //client.broadcast.emit('
-//});
+  client.on("disconnect", function() {
+      i--;
+      console.log("i: " + i);
+    });
+    
+    
+  client.on('add_score1', function(){
+  	client.broadcast.emit('add1');
+  });  
+  client.on('add_score2', function(){
+  	client.broadcast.emit('add2');
+  });  
+
+  client.on('position_all', function(stuff){
+  	socket.emit('pass_the_ball', stuff);
+  });
+    //client.on('ball_position', function(){
+  	  //client.broadcast.emit('pos');
+    //});
+    
+    //client.on('scores', function(){
+  	  //client.broadcast.emit('
+  //});
+
+  client.on('yPos', function (data){
+    client.broadcast.emit('yPos', data);
+  });
+
+  client.on('y2Pos', function (data){
+    client.broadcast.emit('y2Pos', data);
+  });
+
+  client.on('moveBall', function (data){
+    client.broadcast.emit('moveBall', data);
+  });
 
 
 });

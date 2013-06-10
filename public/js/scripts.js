@@ -3,59 +3,36 @@ var score_counter=0;
 $(document).ready(function () {
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////SOCKETS
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////END_SOCKETS
-
-//$('#Register').click(function() {
-    //window.location.href = '/signup';
-    //return false;
-//});
-
 $('#Cancel').click(function() {
     window.location.href = '/';
     return false;
 });
 
 $('#music').click(function() {
-$('#music_box').remove();
-$('#music').remove();
-    return false;
+    $('#music_box').remove();
+    $('#music').remove();
+        return false;
 });
 
 $('#single').click(function() {
-$('#score').append('<p>Your score is: ' + score_counter + '</p>');
-$('#options').children().remove();
-$('#logo').remove();
+    $('#score').append('<p>Your score is: ' + score_counter + '</p>');
+    $('#options').children().remove();
+    $('#logo').remove();
 
-	$("#pong").pong({
-        "speed":2500,
-        "pad_height":100
-    });
-    $('#pong_score1').prop('disabled', true); //TS score inputs now disabled
-$('#pong_score2').prop('disabled', true);
-    return false;
+    	$("#pong").pong({
+            "speed":2500,
+            "pad_height":100
+        });
+        $('#pong_score1').prop('disabled', true); //TS score inputs now disabled
+    $('#pong_score2').prop('disabled', true);
+        return false;
 });
 
 $('#multi').click(function() {
 
 	$('.form').append('<script type="text/javascript" src=\'/js/jquery-pong-0.4.1-right-p2.js\'></script>');
 
-		$('#options').children().remove();
-		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////SOCKETS
-var socket = io.connect(window.location.hostname);
-socket.on('too_many_players', function () {
-$('#pong').remove();
-$('#score').remove();
 	$('#options').children().remove();
-$('#options').append('<h1>There is a game in progress please try again or play on single player mode</h1><input type="button" value="Go back" onclick="window.location=(\'/game\')" />');
-});
-//socket.on('too_few_players', function () {
-//$('#pong').remove();
-//$('#score').remove();
-	//$('#options').children().remove();
-//$('#options').append('<h1>There are no other players willing to play at the moment. Please try again later or play on single player mode</h1><input type="button" value="Go back" onclick="window.location=(\'/game\')" />');
-//});
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////END_SOCKETS
 $('#score').append('<p>Your score is: ' + score_counter + '</p>');
 $('#logo').remove();
