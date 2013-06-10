@@ -54,38 +54,3 @@ function go_back() {
 window.location.href = '/game';
 return false;	
 }
-
-
-
-
-
-//function getXhrObject() {  
-
-    //var xhrObject = new XMLHttpRequest();  
-//var ajaxCapable = getXhrObject();  
-//ajaxCapable.send(username); 
-
-//if (ajaxCapable.readyState == 4) {  
-        //if (ajaxCapable.status == 200 || ajaxCapable.status == 304) {  
-            //document.getElementById("content").innerHTML = ajaxCapable.responseText;  
-//}
-//}
-//}
-//$.ajax({
-    //type: 'POST',
-    //url: '/app.js',
-    //async: false,
-    //data: username,
-    //success: function(data) {
-       //alert('response data = ' + data);
-    //}
-//});
-
-
-
-//db.open(function (err) {
-
-    //db.collection('Users', function (err, coll) {
-        //coll.insert({"User": username.value, "Pass": password.value}, function (err) {});
-    //window.location.href = '/';
-//return false;	

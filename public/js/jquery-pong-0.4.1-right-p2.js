@@ -64,20 +64,13 @@ socket.on('player1', function () {        //TS player1 is on the left
             $this.click(onClick);
 		});
 socket.on('player2', function () {        //TS player2 is on the right    
-            
             $this.mousemove(onMousemove2);
              $this.click(onClick2); 
-			//socket.send(onMousemove());
-            // socket.emit('start_for_p1');//TS only player 2 can serve (blocks starting the game before player 2 loads)
 		});
-            
         });
     };
  
-
-             
-
-    function onMousemove(e)
+function onMousemove(e)
     {    
 		
         var $this = $(this);
@@ -96,10 +89,9 @@ socket.on('player2', function () {        //TS player2 is on the right
     
 };
 }
-
             socket.on('yPos', function (data){
                 y = data;
-                $("#pong_player1").css({"top":y});
+                $("#pong_player1").css({"top":y});  //TS move player1 y from top
             });
 
 function onMousemove2(e)
@@ -122,7 +114,7 @@ function onMousemove2(e)
 
             socket.on('y2Pos', function (data){
                 y2 = data;
-                $("#pong_player2").css({"top":y2});
+                $("#pong_player2").css({"top":y2}); //TS move player 2 y from top
             });
 
     function onClick(e)
@@ -132,14 +124,7 @@ function onMousemove2(e)
             $this.data("pong_playing",true);
             $("#"+$this.attr("id")+"_title_box").css({"display":"none"});  //TS on screen logo disappears
             rebondir($this);
-              }
-            //socket.emit('ball_position');
-        //socket.on('poz',function($this){ 
-			 
-			//});
-           
-      
-        
+              }   
     };
     
     function onClick2(e)
@@ -148,15 +133,7 @@ function onMousemove2(e)
         if (!$this.data("pong_playing")) {
             $this.data("pong_playing",true);
             $("#"+$this.attr("id")+"_title_box").css({"display":"none"});  //TS on screen logo disappears
-            //rebondir2($this);
               }
-            //socket.emit('ball_position');
-        //socket.on('poz',function($this){ 
-			 
-			//});
-           
-      
-        
     };
     
     function initScreen(obj,opts)
@@ -184,11 +161,7 @@ function onMousemove2(e)
                     $("<div></div>").attr("id",obj.attr("id")+"_title").css({"font-size":50}).html("Pong Tournament"))
                 .append(
                     $("<div></div>")
-                    //original titles 
-                 //  .attr("id",obj.attr("id")+"_title_msg").css({"font-size":15})
-                 //   .append($("<span></span>").html("v"+$.version))
-                   // .append($("<a></a>").attr("href","http://www.geoffray.be").css({"color":obj.css("color"),"text-decoration":"none","margin-left":5}).html("Geoffray Warnants"))
-                    
+                  
             )
         );
     }
@@ -199,7 +172,7 @@ function onMousemove2(e)
         var dx = $this.data("pong_dx");
         var x = $this.data((dx==1) ? "x_max" : "x_min"); 
         var y = Math.floor($this.data("y_min")+Math.random()*$this.data("y_max")-$this.data("y_min"));
-        socket.emit('moveBall', {'x': x, 'y': y});
+        socket.emit('moveBall', {'x': x, 'y': y}); 																							//TS pass ball movement  to server
         $("#"+$this.attr("id")+"_ball").animate({"left":x,"top":y},speed,"linear",function(){
             $this.data("pong_dx", 0-$this.data("pong_dx"));
             if (dx==-1) {
@@ -209,11 +182,7 @@ function onMousemove2(e)
                     $this.data("pong_speed", speed-50);
                 } else {
                     $this.data("pong_playing", false);
-                    $("#"+$this.attr("id")+"_score2").val(parseInt($("#"+$this.attr("id")+"_score2").val())+1);   //socket.emit('pass_score1', 'pong_score1', 'pong_score2' //TS passing scores
-                    //socket.emit('add_score2'); //TS adding scores to the other player
-                    //socket.on('add1', function(){ //TS adding scores to other player
-						//$("#"+$this.attr("id")+"_score1").val(parseInt($("#"+$this.attr("id")+"_score1").val())+1);
-					//});
+                    $("#"+$this.attr("id")+"_score2").val(parseInt($("#"+$this.attr("id")+"_score2").val())+1);   
                     if ($("#"+$this.attr("id")+"_score2").val() >= 5) {
                         $("#"+$this.attr("id")+"_title").html("You loose");
                         $("#"+$this.attr("id")+"_title_msg").html("");
@@ -239,11 +208,7 @@ function onMousemove2(e)
                 } else {
                     $this.data("pong_playing", false);
                     $("#"+$this.attr("id")+"_score1").val(parseInt($("#"+$this.attr("id")+"_score1").val())+1);
-                    $("#"+$this.attr("id")+"_player2").stop();
-					//socket.emit('add_score1'); //TS adding scores to the other player
-					//socket.on('add2', function(){ //TS adding scores to other player
-						//$("#"+$this.attr("id")+"_score2").val(parseInt($("#"+$this.attr("id")+"_score2").val())+1);
-					//});
+                    $("#"+$this.attr("id")+"_player2").stop(); ////////////////////////////////////////////////////////////////////////////////////////////////////without this maybe??
                     if ($("#"+$this.attr("id")+"_score1").val() >= 5) {
                         $("#"+$this.attr("id")+"_title").html("You win");
                         $("#"+$this.attr("id")+"_title_msg").html("");
@@ -265,12 +230,11 @@ function onMousemove2(e)
         
         if ($this.data("pong_playing")) {
             window.setTimeout(function() {
-                //moveComputer($this,((dx==1) ? y : $this.height()/2) - $("#"+$this.attr("id")+"_player2").height()/2);
             }, Math.round((500-(2*speed))+Math.random()*(1000-(2*speed))));
         }
     }
 
-    socket.on('moveBall', function (data){
+    socket.on('moveBall', function (data){  //TS returning with the ball movement
         var $this = $('#pong');
         var speed = $this.data("pong_speed");        
         var dx = $this.data("pong_dx");
@@ -285,11 +249,7 @@ function onMousemove2(e)
                     $this.data("pong_speed", speed-50);
                 } else {
                     $this.data("pong_playing", false);
-                    $("#"+$this.attr("id")+"_score2").val(parseInt($("#"+$this.attr("id")+"_score2").val())+1);   //socket.emit('pass_score1', 'pong_score1', 'pong_score2' //TS passing scores
-                    //socket.emit('add_score2'); //TS adding scores to the other player
-                    //socket.on('add1', function(){ //TS adding scores to other player
-                        //$("#"+$this.attr("id")+"_score1").val(parseInt($("#"+$this.attr("id")+"_score1").val())+1);
-                    //});
+                    $("#"+$this.attr("id")+"_score2").val(parseInt($("#"+$this.attr("id")+"_score2").val())+1);
                     if ($("#"+$this.attr("id")+"_score2").val() >= 5) {
                         $("#"+$this.attr("id")+"_title").html("You loose");
                         $("#"+$this.attr("id")+"_title_msg").html("");
@@ -316,10 +276,6 @@ function onMousemove2(e)
                     $this.data("pong_playing", false);
                     $("#"+$this.attr("id")+"_score1").val(parseInt($("#"+$this.attr("id")+"_score1").val())+1);
                     $("#"+$this.attr("id")+"_player2").stop();
-                    //socket.emit('add_score1'); //TS adding scores to the other player
-                    //socket.on('add2', function(){ //TS adding scores to other player
-                        //$("#"+$this.attr("id")+"_score2").val(parseInt($("#"+$this.attr("id")+"_score2").val())+1);
-                    //});
                     if ($("#"+$this.attr("id")+"_score1").val() >= 5) {
                         $("#"+$this.attr("id")+"_title").html("You win");
                         $("#"+$this.attr("id")+"_title_msg").html("");
@@ -341,97 +297,10 @@ function onMousemove2(e)
         
         if ($this.data("pong_playing")) {
             window.setTimeout(function() {
-                //moveComputer($this,((dx==1) ? y : $this.height()/2) - $("#"+$this.attr("id")+"_player2").height()/2);
             }, Math.round((500-(2*speed))+Math.random()*(1000-(2*speed))));
         }
     });
-    
-    
-    //
-    //
-    //
-    //
-//////////////////////REBONDIR2
 
-  function rebondir2($this) {
-
-       var speed = $this.data("pong_speed");        
-        var dx = $this.data("pong_dx");
-        var x = $this.data((dx==1) ? "x_max" : "x_min"); 
-        var y = Math.floor($this.data("y_min")+Math.random()*$this.data("y_max")-$this.data("y_min"));
-        $("#"+$this.attr("id")+"_ball").animate({"left":x,"top":y},speed,"linear",function(){
-            $this.data("pong_dx", 0-$this.data("pong_dx"));
-            if (dx==-1) {
-                var y_min = parseInt($("#"+$this.attr("id")+"_player2").css("top"))-$("#"+$this.attr("id")+"_ball").height();
-                var y_max = y_min+$("#"+$this.attr("id")+"_player2").height()+$("#"+$this.attr("id")+"_ball").height();
-                if (y > y_min && y < y_max) {
-                    $this.data("pong_speed", speed-50);
-                } else {
-                    $this.data("pong_playing", false);
-                    $("#"+$this.attr("id")+"_score2").val(parseInt($("#"+$this.attr("id")+"_score2").val())+1);   //socket.emit('pass_score1', 'pong_score1', 'pong_score2' //TS passing scores
-                    //socket.emit('add_score2'); //TS adding scores to the other player
-                    //socket.on('add1', function(){ //TS adding scores to other player
-						//$("#"+$this.attr("id")+"_score1").val(parseInt($("#"+$this.attr("id")+"_score1").val())+1);
-					//});
-                    if ($("#"+$this.attr("id")+"_score2").val() >= 5) {
-                        $("#"+$this.attr("id")+"_title").html("You loose");
-                        $("#"+$this.attr("id")+"_title_msg").html("");
-                        $("#"+$this.attr("id")+"_title_box").css({"display":"block"});
-                        $('#score').children().remove();  //TS changing scores
-                        score_counter--;
-                        if(score_counter <0) score_counter = 0;
-                        $('#score').append('<p>Your score is: ' + score_counter + '</p>');
-                        $('#pong').remove(); //TS remove game field
-                        	$('#options').append('<input type="button" value="Leave game" class="btn btn-primary" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
-					
-						
-                    }
-                    
-                }
-                
-            } else {
-            
-                var y_min = parseInt($("#"+$this.attr("id")+"_player2").css("top"))-$("#"+$this.attr("id")+"_ball").height();
-                var y_max = y_min+$("#"+$this.attr("id")+"_player2").height()+$("#"+$this.attr("id")+"_ball").height();
-                if (y > y_min && y < y_max) {
-                    $this.data("pong_speed", speed-50);
-                } else {
-                    $this.data("pong_playing", false);
-                    $("#"+$this.attr("id")+"_score1").val(parseInt($("#"+$this.attr("id")+"_score1").val())+1);
-                    $("#"+$this.attr("id")+"_player2").stop();
-					//socket.emit('add_score1'); //TS adding scores to the other player
-					//socket.on('add2', function(){ //TS adding scores to other player
-						//$("#"+$this.attr("id")+"_score2").val(parseInt($("#"+$this.attr("id")+"_score2").val())+1);
-					//});
-                    if ($("#"+$this.attr("id")+"_score1").val() >= 5) {
-                        $("#"+$this.attr("id")+"_title").html("You win");
-                        $("#"+$this.attr("id")+"_title_msg").html("");
-                        $("#"+$this.attr("id")+"_title_box").css({"display":"block"});
-                          $('#score').children().remove();  //TS changing scores
-                        score_counter++;
-                        $('#pong').remove(); //TS remove game field
-            $('#score').append('<p>Your score is: ' + score_counter + '</p>');
-                        	$('#options').append('<input type="button" value="Leave game" class="btn" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
-                    }
-                }
-            }
-            
-            if ($this.data("pong_playing")) {
-                rebondir2($this);
-            }
-            
-        });
-        
-        if ($this.data("pong_playing")) {
-            window.setTimeout(function() {
-                //moveComputer($this,((dx==1) ? y : $this.height()/2) - $("#"+$this.attr("id")+"_player2").height()/2);
-            }, Math.round((500-(2*speed))+Math.random()*(1000-(2*speed))));
-        }
-    }
- 
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Valeurs par défaut des options
     $.fn.pong.defaults = {
         "width": 640,                    // Largeur de l'écran de jeu
