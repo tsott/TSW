@@ -190,11 +190,10 @@ function onMousemove2(e)
                         $("#"+$this.attr("id")+"_title_msg").html("");
                         $("#"+$this.attr("id")+"_title_box").css({"display":"block"});
                         $('#score').children().remove();  //TS changing scores
-                        score_counter--;
-                        if(score_counter <0) score_counter = 0;
+                        score_counter++;
                         $('#score').append('<p>Your score is: ' + score_counter + '</p>');
                         $('#pong').remove(); //TS remove game field
-                        	$('#options').append('<input type="button" value="Leave game" class="btn btn-danger" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
+                        	$('#options').append('<input type="button" value="Leave game" class="btn btn-success" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
 					
 						
                     }
@@ -203,23 +202,24 @@ function onMousemove2(e)
                 
             } else {
             
-                var y_min = parseInt($("#"+$this.attr("id")+"_player2").css("top"))-$("#"+$this.attr("id")+"_ball").height();
-                var y_max = y_min+$("#"+$this.attr("id")+"_player2").height()+$("#"+$this.attr("id")+"_ball").height();
+                var y_min = parseInt($("#"+$this.attr("id")+"_player1").css("top"))-$("#"+$this.attr("id")+"_ball").height();
+                var y_max = y_min+$("#"+$this.attr("id")+"_player1").height()+$("#"+$this.attr("id")+"_ball").height();
                 if (y > y_min && y < y_max) {
                     $this.data("pong_speed", speed-50);
                 } else {
                     $this.data("pong_playing", false);
                     $("#"+$this.attr("id")+"_score1").val(parseInt($("#"+$this.attr("id")+"_score1").val())+1);
-                    $("#"+$this.attr("id")+"_player2").stop(); ////////////////////////////////////////////////////////////////////////////////////////////////////without this maybe??
+                    $("#"+$this.attr("id")+"_player2").stop(); //TS stops the game. p2 has to click to serve
                     if ($("#"+$this.attr("id")+"_score1").val() >= 5) {
                         $("#"+$this.attr("id")+"_title").html("You win");
                         $("#"+$this.attr("id")+"_title_msg").html("");
                         $("#"+$this.attr("id")+"_title_box").css({"display":"block"});
                           $('#score').children().remove();  //TS changing scores
-                        score_counter++;
+                        score_counter--;
+                         if(score_counter <0) score_counter = 0;
                         $('#pong').remove(); //TS remove game field
             $('#score').append('<p>Your score is: ' + score_counter + '</p>');
-                        	$('#options').append('<input type="button" value="Leave game" class="btn btn-success" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
+                        	$('#options').append('<input type="button" value="Leave game" class="btn btn-danger" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
                     }
                 }
             }
@@ -251,8 +251,8 @@ function onMousemove2(e)
                     $this.data("pong_speed", speed-50);
                 } else {
                     $this.data("pong_playing", false);
-                    $("#"+$this.attr("id")+"_score1").val(parseInt($("#"+$this.attr("id")+"_score1").val())+1);  //??????????????SWITCH TO P1 MAYBE?
-                    if ($("#"+$this.attr("id")+"_score1").val() >= 5) {
+                    $("#"+$this.attr("id")+"_score2").val(parseInt($("#"+$this.attr("id")+"_score2").val())+1); 
+                    if ($("#"+$this.attr("id")+"_score2").val() >= 5) {
                         $("#"+$this.attr("id")+"_title").html("You loose");
                         $("#"+$this.attr("id")+"_title_msg").html("");
                         $("#"+$this.attr("id")+"_title_box").css({"display":"block"});
@@ -270,15 +270,15 @@ function onMousemove2(e)
                 
             } else {
             
-                var y_min = parseInt($("#"+$this.attr("id")+"_player2").css("top"))-$("#"+$this.attr("id")+"_ball").height();
-                var y_max = y_min+$("#"+$this.attr("id")+"_player2").height()+$("#"+$this.attr("id")+"_ball").height();
+                var y_min = parseInt($("#"+$this.attr("id")+"_player1").css("top"))-$("#"+$this.attr("id")+"_ball").height();
+                var y_max = y_min+$("#"+$this.attr("id")+"_player1").height()+$("#"+$this.attr("id")+"_ball").height();
                 if (y > y_min && y < y_max) {
                     $this.data("pong_speed", speed-50);
                 } else {
                     $this.data("pong_playing", false);
-                    $("#"+$this.attr("id")+"_score2").val(parseInt($("#"+$this.attr("id")+"_score2").val())+1);
-                    $("#"+$this.attr("id")+"_player2").stop();																	/////////////////////////////STOPPED AGAIN WITHOUT TRIAL
-                    if ($("#"+$this.attr("id")+"_score2").val() >= 5) {
+                    $("#"+$this.attr("id")+"_score1").val(parseInt($("#"+$this.attr("id")+"_score1").val())+1);
+                    $("#"+$this.attr("id")+"_player2").stop();																	
+                    if ($("#"+$this.attr("id")+"_score1").val() >= 5) {
                         $("#"+$this.attr("id")+"_title").html("You win");
                         $("#"+$this.attr("id")+"_title_msg").html("");
                         $("#"+$this.attr("id")+"_title_box").css({"display":"block"});
