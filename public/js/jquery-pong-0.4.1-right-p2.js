@@ -1,3 +1,4 @@
+//TS customised for multiplayer
 /**
  * jQuery Pong plugin
  *
@@ -59,11 +60,11 @@ var speed;
             $this.data("y_min",0);
             $this.data("y_max",$this.height()-$("#"+$this.attr("id")+"_ball").width());
 
-socket.on('player1', function () {        //TS player1 is on the left    
+socket.on('player1', function () {        //TS player1
             $this.mousemove(onMousemove);
             $this.click(onClick);
 		});
-socket.on('player2', function () {        //TS player2 is on the right    
+socket.on('player2', function () {        //TS player2  
             $this.mousemove(onMousemove2);
              $this.click(onClick2); 
 		});
@@ -123,7 +124,7 @@ function onMousemove2(e)
         if (!$this.data("pong_playing")) {
             $this.data("pong_playing",true);
             $("#"+$this.attr("id")+"_title_box").css({"display":"none"});  //TS on screen logo disappears
-            rebondir($this);
+            
               }   
     };
     
@@ -133,6 +134,7 @@ function onMousemove2(e)
         if (!$this.data("pong_playing")) {
             $this.data("pong_playing",true);
             $("#"+$this.attr("id")+"_title_box").css({"display":"none"});  //TS on screen logo disappears
+            rebondir($this);  //TS only when p2 connects and clicks the game begins. P2 always serves
               }
     };
     
@@ -192,7 +194,7 @@ function onMousemove2(e)
                         if(score_counter <0) score_counter = 0;
                         $('#score').append('<p>Your score is: ' + score_counter + '</p>');
                         $('#pong').remove(); //TS remove game field
-                        	$('#options').append('<input type="button" value="Leave game" class="btn btn-primary" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
+                        	$('#options').append('<input type="button" value="Leave game" class="btn btn-danger" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
 					
 						
                     }
@@ -217,7 +219,7 @@ function onMousemove2(e)
                         score_counter++;
                         $('#pong').remove(); //TS remove game field
             $('#score').append('<p>Your score is: ' + score_counter + '</p>');
-                        	$('#options').append('<input type="button" value="Leave game" class="btn" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
+                        	$('#options').append('<input type="button" value="Leave game" class="btn btn-success" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
                     }
                 }
             }
@@ -249,8 +251,8 @@ function onMousemove2(e)
                     $this.data("pong_speed", speed-50);
                 } else {
                     $this.data("pong_playing", false);
-                    $("#"+$this.attr("id")+"_score2").val(parseInt($("#"+$this.attr("id")+"_score2").val())+1);
-                    if ($("#"+$this.attr("id")+"_score2").val() >= 5) {
+                    $("#"+$this.attr("id")+"_score1").val(parseInt($("#"+$this.attr("id")+"_score1").val())+1);  //??????????????SWITCH TO P1 MAYBE?
+                    if ($("#"+$this.attr("id")+"_score1").val() >= 5) {
                         $("#"+$this.attr("id")+"_title").html("You loose");
                         $("#"+$this.attr("id")+"_title_msg").html("");
                         $("#"+$this.attr("id")+"_title_box").css({"display":"block"});
@@ -259,7 +261,7 @@ function onMousemove2(e)
                         if(score_counter <0) score_counter = 0;
                         $('#score').append('<p>Your score is: ' + score_counter + '</p>');
                         $('#pong').remove(); //TS remove game field
-                            $('#options').append('<input type="button" value="Leave game" class="btn btn-primary" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
+                            $('#options').append('<input type="button" value="Leave game" class="btn btn-danger" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
                     
                         
                     }
@@ -274,9 +276,9 @@ function onMousemove2(e)
                     $this.data("pong_speed", speed-50);
                 } else {
                     $this.data("pong_playing", false);
-                    $("#"+$this.attr("id")+"_score1").val(parseInt($("#"+$this.attr("id")+"_score1").val())+1);
-                    $("#"+$this.attr("id")+"_player2").stop();
-                    if ($("#"+$this.attr("id")+"_score1").val() >= 5) {
+                    $("#"+$this.attr("id")+"_score2").val(parseInt($("#"+$this.attr("id")+"_score2").val())+1);
+                    $("#"+$this.attr("id")+"_player2").stop();																	/////////////////////////////STOPPED AGAIN WITHOUT TRIAL
+                    if ($("#"+$this.attr("id")+"_score2").val() >= 5) {
                         $("#"+$this.attr("id")+"_title").html("You win");
                         $("#"+$this.attr("id")+"_title_msg").html("");
                         $("#"+$this.attr("id")+"_title_box").css({"display":"block"});
@@ -284,7 +286,7 @@ function onMousemove2(e)
                         score_counter++;
                         $('#pong').remove(); //TS remove game field
             $('#score').append('<p>Your score is: ' + score_counter + '</p>');
-                            $('#options').append('<input type="button" value="Leave game" class="btn" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
+                            $('#options').append('<input type="button" value="Leave game" class="btn btn-success" id="back_button" onclick="go_back();"/>'); //TS create back button (go to /game)
                     }
                 }
             }
